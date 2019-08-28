@@ -204,19 +204,10 @@ k10_new = np.zeros((I,J))
 k11_new = np.zeros((I,J))
 
 
-def sovleIndividual():
+def sovleIndividual(tol = 0.001):
     global k1, k_bar, L_bar, z, l_bar, alpha, beta, delta, S, eps, k, km, \
     V00, V01, V10, V11, k00, k01, k10, k11, a0, a1, b0, b1
     # return capital in the next step
-    # Global variable
-    k_bar = km[0]
-    k1 = k[0]
-    delta_a = 0.01
-    a = np.array((1-delta_a, 1+delta_a))
-    L_bar = 0.96 * l_bar
-    z = a[0]
-    tol = 0.001
-
     # Control interation times
     count = 0
     # Solve the DDP by value interation
@@ -253,12 +244,12 @@ def sovleIndividual():
                             k11_new[i,j] = res.x
                             V11_new[i,j] = -res.fun
 
-#         vdiff00 = LA.norm(V00 - V00_new)
-#         vdiff01 = LA.norm(V01 - V01_new)
-#         vdiff10 = LA.norm(V10 - V10_new)
-#         vdiff11 = LA.norm(V11 - V11_new)
+        vdiff00 = LA.norm(V00 - V00_new)
+        vdiff01 = LA.norm(V01 - V01_new)
+        vdiff10 = LA.norm(V10 - V10_new)
+        vdiff11 = LA.norm(V11 - V11_new)
 
-        #print("Value function matrix norm difference at each step: ", vdiff00, vdiff01, vdiff10, vdiff11)
+        print("Value function matrix norm difference at each step: ", vdiff00, vdiff01, vdiff10, vdiff11)
 
         kdiff00 = LA.norm(k00 - k00_new)
         kdiff01 = LA.norm(k01 - k01_new)
@@ -285,5 +276,13 @@ a0 = 0.095
 a1 = 0.962
 b0 = 0.085
 b1 = 0.965
+# Global variable
+k_bar = km[0]
+k1 = k[0]
+delta_a = 0.01
+a = np.array((1-delta_a, 1+delta_a))
+L_bar = 0.96 * l_bar
+z = a[0]
+S = 0
 eps = 0
 sovleIndividual()
