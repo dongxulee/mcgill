@@ -1,12 +1,10 @@
 import numpy as np
 from numpy.random import randn
 import random
-import statsmodels.api as sm
 from scipy.optimize import minimize
 from scipy import interpolate
 np.set_printoptions(precision=4, suppress=True)
 import pickle
-import quantecon as qe
 import pandas as pd
 import matplotlib.pyplot as plt
 from itertools import cycle
